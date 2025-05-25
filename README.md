@@ -1,6 +1,4 @@
 
----
-
 # Building the Classic Snake Game with Python
 
 This repository accompanies the LinkedIn Learning course **Building the Classic Snake Game with Python** by Robin Andrews.
@@ -105,8 +103,6 @@ docker rmi snake-game:v2
     ├── snake-food-32x32.gif
     └── snake-head-20x20.gif
 ```
-
----
 
 [lil-course-url]: https://www.linkedin.com/learning/building-the-classic-snake-game-with-python
 [lil-thumbnail-url]: https://cdn.lynda.com/course/2896343/2896343-1634664622455-16x9.jpg
