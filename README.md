@@ -91,7 +91,7 @@ docker rmi snake-game:v2
 
 ---
 
-## 📂 Project Directory Structure Example
+## 📂 Project Directory Structure
 
 ```
 /snake-game
