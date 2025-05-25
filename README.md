@@ -5,29 +5,108 @@ This is the repository for the LinkedIn Learning course `Building the Classic Sn
 
 Are you looking for a fun, meaningful way to level up your Python programming skills? In this course, instructor Robin Andrews shows you how to put together what you need to know to build the Python version of a classic Snake game. Robin introduces you to turtle graphics and how you can use and control animation using Python turtle graphics. He explains global variables and shows you how to draw with turtle graphics by using stamps. With these pieces in place, it’s time to work on the game itself! Robin walks you through how to represent the snake, move it around the screen, and control the snake’s direction. He discusses the game loop that is used to control the game and also goes over how to add snake food to the game, implement a scoring system, and reset the game. Robin finishes up with advice on how to use Lambda expressions to avoid repetition in your game and some fun ways to personalize your game.
 
-_See the readme file in the main branch for updated instructions and information._
-## Instructions
-This repository has branches for each of the videos in the course. You can use the branch pop up menu in github to switch to a specific branch and take a look at the course at that stage, or you can add `/tree/BRANCH_NAME` to the URL to go to the branch you want to access.
+Here’s a step-by-step **README.md** to run your Dockerized Python GUI Snake Game on **Windows using VcXsrv**:
 
-## Branches
-The branches are structured to correspond to the videos in the course. The naming convention is `CHAPTER#_MOVIE#`. As an example, the branch named `02_03` corresponds to the second chapter and the third video in that chapter. 
-Some branches will have a beginning and an end state. These are marked with the letters `b` for "beginning" and `e` for "end". The `b` branch contains the code as it is at the beginning of the movie. The `e` branch contains the code as it is at the end of the movie. The `main` branch holds the final state of the code when in the course.
+---
 
-When switching from one exercise files branch to the next after making changes to the files, you may get a message like this:
+## 🐍 Snake Game (Turtle Graphics) – Dockerized
 
-    error: Your local changes to the following files would be overwritten by checkout:        [files]
-    Please commit your changes or stash them before you switch branches.
-    Aborting
+This project is a classic Snake Game built with Python's Turtle Graphics. It runs inside a Docker container and displays the GUI on your Windows machine using **VcXsrv** (X Server).
 
-To resolve this issue:
-	
-    Add changes to git using this command: git add .
-	Commit changes using this command: git commit -m "some message"
+---
 
-## Installing
-1. To use these exercise files, you must have the following installed:
-	- Python 3
-2. Clone this repository into your local machine using the terminal (Mac), CMD (Windows), or a GUI tool like SourceTree.
+## 🛠️ Prerequisites
+
+1. **Docker Desktop** installed and running
+2. **VcXsrv** (X11 server) for Windows
+   👉 [Download VcXsrv](https://vcxsrv.com/)
+
+---
+
+## 🖥️ Setup VcXsrv
+
+1. Open **VcXsrv**
+2. Select:
+
+   * ✅ *Multiple Windows*
+   * ✅ *Start no client*
+   * ✅ *Disable access control*
+3. Click **Finish**
+4. Allow through **Windows Firewall** when prompted
+
+---
+
+## 🐳 Build Docker Image
+
+Place your Python game file (e.g., `snake_game_with_graphics.py`) and assets in a directory and create a `Dockerfile` like:
+
+```dockerfile
+FROM python:3.9
+
+# Install Tkinter
+RUN apt-get update && \
+    apt-get install -y python3-tk
+
+WORKDIR /app
+COPY . .
+
+CMD ["python", "snake_game_with_graphics.py"]
+```
+
+Then build the image:
+
+```bash
+docker build -t snake-game:v2 .
+```
+
+---
+
+## ▶️ Run the Game
+
+```bash
+docker run -it --rm -e DISPLAY=host.docker.internal:0.0 snake-game:v2
+```
+
+If `host.docker.internal` doesn’t work, use your **host IP address**:
+
+```bash
+ipconfig   # Find IPv4 Address
+docker run -it --rm -e DISPLAY=YOUR_IP_HERE:0.0 snake-game:v2
+```
+
+---
+
+## ✅ Expected Result
+
+A game window should open via VcXsrv showing the Snake Game.
+Use **arrow keys** to play.
+
+---
+
+## 🧹 Clean Up
+
+No cleanup needed for `--rm`, but you can manually remove the image:
+
+```bash
+docker rmi snake-game:v2
+```
+
+---
+
+## 📂 Project Structure Example
+
+```
+/snake-game
+│
+├── Dockerfile
+├── snake_game_with_graphics.py
+└── assets/
+    ├── bg2.gif
+    ├── snake-food-32x32.gif
+    └── snake-head-20x20.gif
+```
+
+---
 
 
 [0]: # (Replace these placeholder URLs with actual course URLs)
